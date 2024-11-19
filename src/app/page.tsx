@@ -12,10 +12,8 @@ import Footer from './components/Footer';
   return catGiphys  
 }
 
-interface Response<T>  {
-  data:[],
-  meta:object,
-  pagination:object
+interface Response  {
+  data:[]
 }
 type formInputs = {
   searchTerm:string

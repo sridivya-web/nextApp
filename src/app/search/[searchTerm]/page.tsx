@@ -11,9 +11,7 @@ import { use,useEffect,useState } from "react";
     return catGiphys  
   }
   interface Response {
-    data:[],
-    meta:object,
-    pagination:object
+    data:[]
   }
   type imgOrginal = {
     original: {
