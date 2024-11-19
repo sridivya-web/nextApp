@@ -7,7 +7,7 @@ import { use,useEffect,useState } from "react";
 
 
   interface Response {
-    data:[]
+    data:[] 
   }
   type imgOrginal = {
     original: {
@@ -41,7 +41,7 @@ export default function Search ({ params }: { params: Promise<{ searchTerm: stri
             <Head>
                 <title>Search resulst for : {searchTerm}</title>
                 <link rel="icon" href="/favicon.ico" />
-                <meta name="description" content={giphyData?.data?.map((res : imgRes) => res.title+ ' ')}></meta>   
+                {/* <meta name="description" content={giphyData?.data?.map((res : imgRes) => res.title+ ' ')}></meta>    */}
             </Head>
             <p>Go <Link href="/"> Home </Link></p>
             <h1>Search results for: {searchTerm}</h1>
