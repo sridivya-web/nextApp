@@ -2,22 +2,33 @@
 import Footer from '@/app/components/Footer';
 import Head from 'next/head'
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'
 import { use,useEffect,useState } from "react";
 
-type urlString= {
-    urls: string
-  }
-   async function getData(url:any) {
+
+   async function getData(url:string) {
     let catGiphys = await fetch(url)
     catGiphys = await catGiphys.json()
     return catGiphys  
   }
+  type Response = {
+    data:Array<T>,
+    meta:object,
+    pagination:object
+  }
+  type imgOrginal = {
+    original: {
+      url : string
+    }
+  }
+  type imgRes = {
+    title: string,
+    images:imgOrginal
+
+  }
 
 export default function Search ({ params }: { params: Promise<{ searchTerm: string }> }){
     const { searchTerm } = use(params);
-    const router = useRouter();
-    const [giphyData, setGiphyData]= useState<any>([]);
+    const [giphyData, setGiphyData]= useState<Response | null>(null);
 
     useEffect(()=>{
         const url = `https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=fZJJ67egxjN9CJN6QeZ2Dbg8Ls4LKF1W&limit=10`
@@ -38,11 +49,11 @@ export default function Search ({ params }: { params: Promise<{ searchTerm: stri
             <h1>Search results for: {searchTerm}</h1>
             <div className='giphy-search-results-grid'>
       {
-        giphyData?.data?.map((each:any,index:number) => {
+        giphyData?.data?.map((each:imgRes,index:number) => {
           return(
             <div key={index} className="giphyCard">
             <h3><Link href="/search/[searchTerm]" as={`/search/${each.title}`}>{each.title}</Link></h3>
-            <img src={each.images.original.url} alt={each.tiitle} />
+            <img src={each.images.original.url} alt={each.title} />
             </div>
           )
         })

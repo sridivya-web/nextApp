@@ -6,18 +6,35 @@ import {ChangeEvent, useEffect, useState, FormEvent} from 'react';
 import Footer from './components/Footer';
 import Image from 'next/image'
 
- async function getData(url:any) {
+ async function getData(url:string) {
   let catGiphys = await fetch(url)
   catGiphys = await catGiphys.json()
   return catGiphys  
 }
 
+type Response = {
+  data:Array<T>,
+  meta:object,
+  pagination:object
+}
 type formInputs = {
   searchTerm:string
 }
+
+type imgOrginal = {
+  original: {
+    url : string
+  }
+}
+type imgRes = {
+  title: string,
+  images:imgOrginal
+
+}
+
 export default function Home() {
 
-  const [giphyData, setGiphyData]= useState<any>([]);
+  const [giphyData, setGiphyData]= useState<Response | null>(null);
   const [formInputs, setFormInputs] = useState<formInputs>({ searchTerm:""});
   const [searchTerm, setSearchTerm] = useState('cats');
 
@@ -43,6 +60,7 @@ export default function Home() {
      }); 
      setSearchTerm(formInputs.searchTerm)
   }
+
   return (
     <div className='container'>
 
@@ -53,15 +71,6 @@ export default function Home() {
       </Head>
 
       <p className='appTitle'>Giphy Search App</p>
-      <div className="logo-container">
-        <Image
-            src="/logo.png"
-            alt="logo"
-            fill
-             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-
-        />
-      </div>
 
       <form onSubmit={search}>
         <input onChange={handleInput} type="text" name="searchTerm" className='inputStyle' required/>
@@ -72,11 +81,11 @@ export default function Home() {
 
       <div className='giphy-search-results-grid'>
       {
-        giphyData?.data?.map((each:any,index:number) => {
+        giphyData?.data?.map((each:imgRes,index:number) => {
           return(
             <div key={index} className="giphyCard">
             <h3><Link href={`/search/${each.title}`}>{each.title}</Link></h3>
-            <img src={each.images.original.url} alt={each.tiitle} />
+            <img src={each.images.original.url} alt={each.title} />
             </div>
           )
         })
