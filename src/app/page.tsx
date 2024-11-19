@@ -2,7 +2,7 @@
 'use client'
 import Head from 'next/head';
 import Link from 'next/link';
-import {useEffect, useState} from 'react';
+import {ChangeEvent, useEffect, useState, FormEvent} from 'react';
 import Footer from './components/Footer';
 import Image from 'next/image'
 
@@ -20,7 +20,7 @@ interface response {
   meta:object,
   pagination:object
 }
-interface formInputs{
+type formInputs = {
 
 
   searchTerm:string
@@ -28,7 +28,7 @@ interface formInputs{
 export default function Home() {
 
   const [giphyData, setGiphyData]= useState<any>([]);
-  const [formInputs, setFormInputs] = useState<formInputs | {}>({});
+  const [formInputs, setFormInputs] = useState<formInputs>({ searchTerm:""});
   const [searchTerm, setSearchTerm] = useState('cats');
 
    useEffect(()=>{
@@ -39,13 +39,13 @@ export default function Home() {
 
   },[])
 
-  const handleInput = (e):void => {
+  const handleInput = (e : ChangeEvent<HTMLInputElement>) => {
    let {name, value}=e.target;
    setFormInputs({...formInputs, [name]:value});
 
   }
  
-  const search = (e) => {
+  const search = (e : FormEvent<HTMLFormElement>) => {
    e.preventDefault();
      const url = `https://api.giphy.com/v1/gifs/search?q=${formInputs.searchTerm}&api_key=fZJJ67egxjN9CJN6QeZ2Dbg8Ls4LKF1W&limit=10`;
      getData(url).then((resp) => {
@@ -75,7 +75,7 @@ export default function Home() {
 
       <form onSubmit={search}>
         <input onChange={handleInput} type="text" name="searchTerm" className='inputStyle' required/>
-        <button>Search</button>
+        <button type="submit">Search</button>
       </form>
 
       <h1>Search results for: {searchTerm}</h1>
