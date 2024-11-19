@@ -30,7 +30,7 @@ type imgRes = {
 
 }
 
-export default function Home<T>() {
+export default function Home() {
 
   const [giphyData, setGiphyData]= useState<Response | null>(null);
   const [formInputs, setFormInputs] = useState<formInputs>({ searchTerm:""});
