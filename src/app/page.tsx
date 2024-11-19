@@ -13,7 +13,7 @@ import Footer from './components/Footer';
 }
 
 interface Response<T>  {
-  data:Array<T>,
+  data:[],
   meta:object,
   pagination:object
 }
@@ -32,9 +32,9 @@ type imgRes = {
 
 }
 
-export default function Home() {
+export default function Home<T>() {
 
-  const [giphyData, setGiphyData]= useState<Response<T> | null>(null);
+  const [giphyData, setGiphyData]= useState<Response | null>(null);
   const [formInputs, setFormInputs] = useState<formInputs>({ searchTerm:""});
   const [searchTerm, setSearchTerm] = useState('cats');
 

@@ -10,8 +10,8 @@ import { use,useEffect,useState } from "react";
     catGiphys = await catGiphys.json()
     return catGiphys  
   }
-  interface Response<T> {
-    data:Array<T>,
+  interface Response {
+    data:[],
     meta:object,
     pagination:object
   }
@@ -28,7 +28,7 @@ import { use,useEffect,useState } from "react";
 
 export default function Search ({ params }: { params: Promise<{ searchTerm: string }> }){
     const { searchTerm } = use(params);
-    const [giphyData, setGiphyData]= useState<Response<T> | null>(null);
+    const [giphyData, setGiphyData]= useState<Response | null>(null);
 
     useEffect(()=>{
         const url = `https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=fZJJ67egxjN9CJN6QeZ2Dbg8Ls4LKF1W&limit=10`
