@@ -25,7 +25,7 @@ export default function Search ({ params }: { params: Promise<{ searchTerm: stri
     const [giphyData, setGiphyData]= useState<Response[]>([]);
 
     async function getData(url:string) {
-      let catGiphys = await fetch(url)
+      const catGiphys = await fetch(url)
       setGiphyData(await catGiphys.json())
    
     }

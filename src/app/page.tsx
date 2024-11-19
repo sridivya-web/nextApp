@@ -32,7 +32,7 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('cats');
 
   async function getData(url:string) {
-    let catGiphys = await fetch(url)
+    const catGiphys = await fetch(url)
     setGiphyData(await catGiphys.json())
      
   }
