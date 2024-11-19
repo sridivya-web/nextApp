@@ -6,11 +6,6 @@ import {ChangeEvent, useEffect, useState, FormEvent} from 'react';
 import Footer from './components/Footer';
 
 
- async function getData(url:string) {
-  let catGiphys = await fetch(url)
-  catGiphys = await catGiphys.json()
-  return catGiphys  
-}
 
 interface Response  {
   data:[]
@@ -36,11 +31,16 @@ export default function Home() {
   const [formInputs, setFormInputs] = useState<formInputs>({ searchTerm:""});
   const [searchTerm, setSearchTerm] = useState('cats');
 
+  async function getData(url:string) {
+    let catGiphys = await fetch(url)
+    setGiphyData(await catGiphys.json())
+     
+  }
+
+  
    useEffect(()=>{
     const url = 'https://api.giphy.com/v1/gifs/search?q=cats&api_key=fZJJ67egxjN9CJN6QeZ2Dbg8Ls4LKF1W&limit=10'
-    getData(url).then((resp) => {
-      setGiphyData(resp);
-    }); 
+    getData(url)
 
   },[])
 
@@ -53,9 +53,7 @@ export default function Home() {
   const search = (e : FormEvent<HTMLFormElement>) => {
    e.preventDefault();
      const url = `https://api.giphy.com/v1/gifs/search?q=${formInputs.searchTerm}&api_key=fZJJ67egxjN9CJN6QeZ2Dbg8Ls4LKF1W&limit=10`;
-     getData(url).then((resp) => {
-      setGiphyData(resp);
-     }); 
+     getData(url)
      setSearchTerm(formInputs.searchTerm)
   }
 
