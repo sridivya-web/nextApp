@@ -22,7 +22,7 @@ import { use,useEffect,useState } from "react";
 
 export default function Search ({ params }: { params: Promise<{ searchTerm: string }> }){
     const { searchTerm } = use(params);
-    const [giphyData, setGiphyData]= useState<Response[]>([]);
+    const [giphyData, setGiphyData]= useState<Response | null>(null);
 
     async function getData(url:string) {
       const catGiphys = await fetch(url)
