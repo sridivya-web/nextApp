@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import {ChangeEvent, useEffect, useState, FormEvent} from 'react';
 import Footer from './components/Footer';
-import Image from 'next/image'
+
 
  async function getData(url:string) {
   let catGiphys = await fetch(url)
