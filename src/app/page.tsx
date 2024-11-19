@@ -6,23 +6,13 @@ import {ChangeEvent, useEffect, useState, FormEvent} from 'react';
 import Footer from './components/Footer';
 import Image from 'next/image'
 
-type urlSting= {
-  urls: string
-}
  async function getData(url:any) {
   let catGiphys = await fetch(url)
   catGiphys = await catGiphys.json()
   return catGiphys  
 }
 
-interface response {
-  data:Array<T>,
-  meta:object,
-  pagination:object
-}
 type formInputs = {
-
-
   searchTerm:string
 }
 export default function Home() {
@@ -40,7 +30,7 @@ export default function Home() {
   },[])
 
   const handleInput = (e : ChangeEvent<HTMLInputElement>) => {
-   let {name, value}=e.target;
+   const {name, value}=e.target;
    setFormInputs({...formInputs, [name]:value});
 
   }
