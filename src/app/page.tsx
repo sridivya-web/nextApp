@@ -12,7 +12,7 @@ import Footer from './components/Footer';
   return catGiphys  
 }
 
-type Response = {
+interface Response<T>  {
   data:Array<T>,
   meta:object,
   pagination:object
@@ -34,7 +34,7 @@ type imgRes = {
 
 export default function Home() {
 
-  const [giphyData, setGiphyData]= useState<Response | null>(null);
+  const [giphyData, setGiphyData]= useState<Response<T> | null>(null);
   const [formInputs, setFormInputs] = useState<formInputs>({ searchTerm:""});
   const [searchTerm, setSearchTerm] = useState('cats');
 
